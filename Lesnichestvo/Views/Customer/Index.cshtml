@@ -1,0 +1,86 @@
+﻿@using System.Security.Claims
+@using Lesnichestvo.Extensions
+@inject IHttpContextAccessor Accessor
+
+@model List<Customer>
+@{
+    ViewData["Title"] = "Заказчики";
+}
+
+<div class="center_element">
+    <div>Таблица "Заказчики"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home")</div>
+    <ul class="horizontal">
+        <li><input type="text" id="customerNameTypeFilter" class="form-control mb-3" placeholder="Фильтр по имени и типу" /></li>
+        <li><input type="text" id="customerStatusFilter" class="form-control mb-3" placeholder="Фильтр по статусу" /></li>
+    </ul>
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>ИНН</th>
+                <th>Тип компании</th>
+                <th>Дата контракта</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Customer customer in Model)
+            {
+                <tr>
+                    <td>@customer.ID</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.INN</td>
+                    <td>@customer.CompanyType</td>
+                    <td>@customer.ContractDate?.ToShortDateString()</td>
+                    <td>@customer.Status</td>
+                    @{
+                        if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
+                        {
+                            <td>
+                                <ul>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", "Customer", new { id = customer.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>
+                                            @Html.ActionLink("Удалить", "Delete", "Customer", new { id = customer.ID },
+                                                htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @{
+                if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                {
+                    <form asp-controller="Customer" asp-action="Create" method="post">
+                    <tr>
+                        <td class="mb-3">Авто</td>
+                        <td><input class="form-control" type="text" name="Name" /></td>
+                        <td><input class="form-control" type="text" name="INN" /></td>
+                        <td><input class="form-control" type="text" name="CompanyType" /></td>
+                        <td><input class="form-control" type="date" name="ContractDate" /></td>
+                        <td><input class="form-control" type="text" name="Status" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("Name", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("INN", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("CompanyType", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("ContractDate", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Status", "", new { @class = "text-danger" })</td>
+                    </tr>
+                    </form>
+                }
+            }
+        </tfoot>
+    </table>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>

@@ -1,0 +1,39 @@
+div {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.center_container {
+    display: flex;
+    justify-content: center; /* по горизонтали */
+    align-items: center; /* по вертикали */
+    min-height: 100vh; /* занимает всю высоту окна */
+    text-align: center;
+    box-sizing: border-box;
+    padding: 20px; /* чтобы при переполнении было красиво */
+}
+
+.hidden_text {
+    font-size: 4px;
+    color: gray;
+}
+
+.text-danger {
+    color: red;
+}
+
+.horizontal {
+}
+
+    .horizontal li {
+        display: inline-block;
+    }
+
+center_element {
+    margin: auto;
+}

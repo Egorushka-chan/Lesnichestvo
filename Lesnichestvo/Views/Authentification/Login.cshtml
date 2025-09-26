@@ -1,0 +1,28 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Авторизация пользователя";
+}
+
+<div class="center_element">
+    <h3>Авторизация в Системе "Курсовая работа по теме Лесничество"</h3>
+    <p style="margin-top:20px">Будьте добры, введите свой логин и пароль!</p>
+    <p>Обратитесь к администрации, если вы их не помните</p>
+
+    <form asp-route="login" method="post">
+        <table align="center">
+            <tr>
+                <td align="left">Логин</td>
+                <td><input style="margin-left:20px" type="text" name="Login" placeholder="Введите свой логин"/></td>
+            </tr>
+            <tr>
+                <td align="left">Пароль</td>
+                <td><input style="margin-left:20px" type="text" name="Password" placeholder="Введите свой пароль" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right"><input type="submit" value="Авторизация"/></td>
+            </tr>
+        </table>
+    </form>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+</div>

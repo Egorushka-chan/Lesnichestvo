@@ -1,0 +1,11 @@
+﻿@using System.Security.Claims
+
+@model string?
+@inject IHttpContextAccessor Accessor
+
+<div class="center_element">
+    <h3>Ой, кажется у вас нет прав на это действие!</h3>
+    <p>Действие @Model невозможно с вашими @Accessor?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value правами!</p>
+    <p>Вы не должны видеть это сообщение по-хорошему, но раз уж так вышло =(</p>
+    <a asp-action="Index" asp-controller="Home">Вернуться на главную страницу!</a>
+</div>

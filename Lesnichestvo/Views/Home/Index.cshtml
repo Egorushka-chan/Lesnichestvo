@@ -1,0 +1,44 @@
+﻿@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="center_element">
+    <h1>Доброго вам @DateTime.Now.ToShortTimeString(), @Accessor.HttpContext?.User?.Identity?.Name!</h1>
+    <div>Вас приветствует Система "Курсовая работа по теме Лесничество"</div>
+    <div>
+        Будьте добры, выбрать одну из возможных сущностей
+        <ul>
+            <li>@Html.ActionLink("Заказчики", "Index", "Customer")</li>
+            <li>@Html.ActionLink("Лесные дачи", "Index", "Dacha")</li>
+            <li>Осмотры</li>
+            <li>Инвентарь</li>
+            <li>Карта</li>
+            <li>Квалификации</li>
+            <li>Квартальные сети</li>
+            <li>Отчёты</li>
+            <li>Проданная древесина</li>
+            <li>Ещё не проданные деревья</li>
+            <li>Типы деревьев</li>
+            <li>Работы</li>
+            <li>Работники</li>
+            <li>Типы работы</li>
+            <li>Связь N:M работ и работников</li>
+            <li>Связь N:M работ и инвентаря</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Поиск и хранимые процедуры</h4>
+        <ul>
+            <li>Глобальный поиск по имени</li>
+            <li>Детализация работы работников</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Настройки Системы</h4>
+        <ul>
+            <li>@Html.ActionLink("Выйти из аккаунта", "Logout", "Authentification")</li>
+        </ul>
+    </div>
+</div>
+

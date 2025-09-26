@@ -1,0 +1,71 @@
+﻿@using System.Security.Claims
+@using Lesnichestvo.Extensions
+@inject IHttpContextAccessor Accessor
+
+@model List<Dacha>
+@{
+    ViewData["Title"] = "Лесные дачи";
+}
+
+<div class="center_element">
+    <div>Таблица "Лесные дачи"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home")</div>
+    <input type="text" id="dachaDescriptionFilter" class="form-control mb-3" placeholder="Фильтр по описанию" />
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID квартальной сети</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Dacha dacha in Model)
+            {
+                <tr>
+                    <td>@dacha.ID</td>
+                    <td>@dacha.NetworkID</td>
+                    <td>@dacha.Description</td>
+                    @{
+                        if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                        {
+                            <td>
+                                <ul>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", "Dacha", new { id = dacha.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>
+                                            @Html.ActionLink("Удалить", "Delete", "Dacha", new { id = dacha.ID },
+                                                htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @{
+                if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                {
+                    <form asp-controller="Dacha" asp-action="Create" method="post">
+                    <tr>
+                        <td class="mb-3">Авто</td>
+                        <td><input class="form-control" type="text" name="NetworkID" /></td>
+                        <td><input class="form-control" type="text" name="Description" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("NetworkID", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Description", "", new { @class = "text-danger" })</td>
+                    </tr>
+                    </form>
+                }
+            }
+        </tfoot>
+    </table>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
