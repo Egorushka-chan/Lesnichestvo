@@ -37,3 +37,7 @@ html, body {
 center_element {
     margin: auto;
 }
+
+th, td{
+    padding: 10px;
+}
