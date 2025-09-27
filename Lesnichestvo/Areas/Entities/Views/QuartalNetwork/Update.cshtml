@@ -1,0 +1,45 @@
+﻿@model QuartalNetwork
+@{
+    ViewData["Title"] = "Редактирование Квартальной сети";
+    string entityName = "QuartalNetwork";
+}
+
+<div class="center_element">
+    <h3>Редактирование Квартальной сети @Model.ID</h3>
+
+    @using (Html.BeginForm("FinishUpdate", entityName, FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <table class="table table-bordered">
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Importance)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Importance, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Importance, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Description)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </td>
+            </tr>
+        </table>
+    }
+</div>

@@ -1,0 +1,64 @@
+﻿@model List<WorkHasWorkers>
+@{
+    ViewData["Title"] = "Связь работ и работников";
+    string entityName = "WorkHasWorkers";
+}
+
+<div class="center_element">
+    <div>Таблица "Связь работ и работников"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID работы</th>
+                <th>ID работника</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.WorkID</td>
+                    <td>@item.WorkerID</td>
+                    @{
+                        if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
+                        {
+                            <td>
+                                <ul class="horizontal">
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = item.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>@Html.ActionLink("Удалить", "Delete", entityName, new { id = item.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
+            {
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>Авто</td>
+                        <td><input class="form-control" type="number" name="WorkID" /></td>
+                        <td><input class="form-control" type="number" name="WorkerID" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("WorkID", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("WorkerID", "", new { @class = "text-danger" })</td>
+                    </tr>
+                }
+            }
+        </tfoot>
+    </table>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>

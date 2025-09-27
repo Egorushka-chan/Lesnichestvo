@@ -26,8 +26,8 @@ namespace Lesnichestvo.DAL
         public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<QuartalNetwork> QuartalNetworks { get; set; }
         public DbSet<Report> Reports { get; set; }
-        public DbSet<SoldWood> SoldWoods { get; set; }
-        public DbSet<UnsoldWood> UnsoldWoods { get; set; }
+        public DbSet<SoldWood> SoldWood { get; set; }
+        public DbSet<UnsoldWood> UnsoldWood { get; set; }
         public DbSet<WoodType> WoodTypes { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<Worker> Workers { get; set; }

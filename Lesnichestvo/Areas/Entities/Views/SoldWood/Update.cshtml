@@ -1,0 +1,50 @@
+﻿@model SoldWood
+@{
+    ViewData["Title"] = "Редактирование проданной древесины";
+    string entityName = "SoldWood";
+}
+
+<div class="center_element">
+    <h3>Редактирование проданной древесины @Model.ID</h3>
+    @using (Html.BeginForm("FinishUpdate", entityName, FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <table class="table table-bordered">
+            <tr>
+                <td>@Html.LabelFor(m => m.WoodTypeID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.WoodTypeID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.WoodTypeID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Quantity)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.CustomerID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.CustomerID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.CustomerID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.DachaID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.DachaID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.DachaID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </td>
+            </tr>
+        </table>
+    }
+</div>

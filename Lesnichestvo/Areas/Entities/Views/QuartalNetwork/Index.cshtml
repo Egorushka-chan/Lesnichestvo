@@ -1,0 +1,70 @@
+﻿@model List<QuartalNetwork>
+@{
+    ViewData["Title"] = "Квартальные сети";
+    string entityName = "QuartalNetwork";
+}
+
+<div class="center_element">
+    <div>Таблица "Квартальные сети"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
+
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Важность</th>
+                <th>Примечание</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model)
+            {
+                <tr>
+                    <td>@q.ID</td>
+                    <td>@q.Name</td>
+                    <td>@q.Importance</td>
+                    <td>@q.Description</td>
+                    @{
+                        if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                        {
+                            <td>
+                                <ul>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = q.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>@Html.ActionLink("Удалить", "Delete", entityName, new { id = q.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+            {
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>Авто</td>
+                        <td><input class="form-control" type="text" name="Name" /></td>
+                        <td><input class="form-control" type="text" name="Importance" /></td>
+                        <td><input class="form-control" type="text" name="Description" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("Name", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Importance", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Description", "", new { @class = "text-danger" })</td>
+                    </tr>
+                }
+            }
+        </tfoot>
+    </table>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>

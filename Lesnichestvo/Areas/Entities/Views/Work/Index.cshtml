@@ -30,7 +30,7 @@
                         if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
                         {
                             <td>
-                                <ul>
+                                <ul class="horizontal">
                                     <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = item.ID })</li>
                                     @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
                                     {

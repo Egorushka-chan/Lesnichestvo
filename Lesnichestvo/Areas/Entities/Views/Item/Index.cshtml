@@ -24,8 +24,20 @@
                     <td>@item.Price</td>
                     <td>@item.Status</td>
                     <td>
-                        @Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { area = "Entities", id = item.ID })
-                        @Html.ActionLink("Удалить", "Delete", entityName, new { area = "Entities", id = item.ID }, new { onclick = "return confirm('Удалить запись?');" })
+                        @{
+                            if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                            {
+                            <td>
+                                <ul>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = item.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>@Html.ActionLink("Удалить", "Delete", entityName, new { id = item.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
                     </td>
                 </tr>
             }

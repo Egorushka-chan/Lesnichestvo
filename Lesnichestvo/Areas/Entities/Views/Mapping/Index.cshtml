@@ -1,0 +1,82 @@
+﻿@model List<Mapping>
+@{
+    ViewData["Title"] = "Сетка координат";
+    string entityName = "Mapping";
+}
+
+<div class="center_element">
+    <div>Таблица "Сетка координат"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
+
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Порядок</th>
+                <th>Описание</th>
+                <th>ID квартальной сети</th>
+                <th>ID лесной дачи</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.ID</td>
+                    <td>@m.XCoord</td>
+                    <td>@m.YCoord</td>
+                    <td>@m.Order</td>
+                    <td>@m.Description</td>
+                    <td>@m.NetworkID</td>
+                    <td>@m.DachaID</td>
+                    @{
+                        if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                        {
+                            <td>
+                                <ul class="horizontal">
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = m.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>@Html.ActionLink("Удалить", "Delete", entityName, new { id = m.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+            {
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>Авто</td>
+                        <td><input class="form-control" type="number" step="any" name="XCoord" /></td>
+                        <td><input class="form-control" type="number" step="any" name="YCoord" /></td>
+                        <td><input class="form-control" type="number" name="Order" /></td>
+                        <td><input class="form-control" type="text" name="Description" /></td>
+                        <td><input class="form-control" type="number" name="NetworkID" /></td>
+                        <td><input class="form-control" type="number" name="DachaID" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("XCoord", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("YCoord", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Order", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Description", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("NetworkID", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("DachaID", "", new { @class = "text-danger" })</td>
+                    </tr>
+                }
+            }
+        </tfoot>
+    </table>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>

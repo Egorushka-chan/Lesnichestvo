@@ -1,0 +1,36 @@
+﻿@model Inspection
+@{
+    ViewData["Title"] = "Редактирование осмотра";
+    string entityName = "Inspection";
+}
+
+<div class="center_element">
+    <h3>Редактирование осмотра @Model.ID</h3>
+    @using (Html.BeginForm("FinishUpdate", entityName, FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <table class="table table-bordered">
+            <tr>
+                <td>@Html.LabelFor(m => m.QuartalNetworkID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.QuartalNetworkID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.QuartalNetworkID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.WorkID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.WorkID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.WorkID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </td>
+            </tr>
+        </table>
+    }
+</div>
