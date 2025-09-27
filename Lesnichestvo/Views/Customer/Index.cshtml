@@ -62,11 +62,11 @@
                     <form asp-controller="Customer" asp-action="Create" method="post">
                     <tr>
                         <td class="mb-3">Авто</td>
-                        <td><input class="form-control" type="text" name="Name" /></td>
-                        <td><input class="form-control" type="text" name="INN" /></td>
+                        <td><input class="form-control" type="text" name="Name" placeholder="Новый заказчик" /></td>
+                        <td><input class="form-control" type="text" name="INN" placeholder="Неизвестный" /></td>
                         <td><input class="form-control" type="text" name="CompanyType" /></td>
                         <td><input class="form-control" type="date" name="ContractDate" /></td>
-                        <td><input class="form-control" type="text" name="Status" /></td>
+                        <td><input class="form-control" type="text" name="Status"/></td>
                         <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
                     </tr>
                     <tr>
@@ -84,3 +84,4 @@
     </table>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 </div>
+

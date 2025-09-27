@@ -1,4 +1,5 @@
-﻿using Lesnichestvo.DAL.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using Lesnichestvo.DAL.Interfaces;
 
 namespace Lesnichestvo.DAL.Entities
 {
@@ -8,6 +9,7 @@ namespace Lesnichestvo.DAL.Entities
     public class WoodType : IEntity
     {
         public int ID {get;set;}
+        [Display(Name = "Тип древесины")]
         public string Name {get;set;} = string.Empty;
 
         public List<UnsoldWood> UnsoldWoods {get;set;} = [];

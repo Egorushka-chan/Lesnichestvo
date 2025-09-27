@@ -11,11 +11,15 @@ namespace Lesnichestvo.DAL.Entities
     {
         public int ID { get; set; }
         [Required]
+        [Display(Name = "Дата")]
         public DateTime Date { get; set; }
+        [Display(Name = "Потрачено часов")]
         public int HoursSpent { get; set; }
         [ForeignKey(nameof(WorkType))]
+        [Display(Name = "Тип работы")]
         public int TypeID { get; set; }
         [ForeignKey(nameof(PreviousWork))]
+        [Display(Name = "Предыдущая работа")]
         public int? PreviousWorkID { get; set; }
         
         public WorkType? WorkType { get; set; }

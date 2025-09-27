@@ -7,8 +7,11 @@ namespace Lesnichestvo.DAL.Entities
     {
         [Key]
         public int ID { get; set; }
+        [Display(Name = "Логин")]
         public string Login { get; set; } = string.Empty;
+        [Display(Name = "Пароль")]
         public string Password { get; set; } = string.Empty;
+        [Display(Name = "Тип пользователя")]
         public string Type { get; set; } = "Guest";
     }
 }
