@@ -1,16 +1,11 @@
 ﻿using Lesnichestvo.DAL.Entities;
+using Lesnichestvo.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lesnichestvo.DAL
 {
-    public class MainContext : DbContext
+    public class MainContext(DbContextOptions<MainContext> options) : DbContext(options)
     {
-        public MainContext(DbContextOptions<MainContext> options) : base(options)
-        {
-            // Создаём базу данных, если она не существует
-            Database.EnsureCreated();
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-EGOR\\SQLEXPRESS;Initial Catalog=Lesnichestvo;Integrated Security=True;TrustServerCertificate=True");
@@ -35,5 +30,16 @@ namespace Lesnichestvo.DAL
         public DbSet<WorkHasWorkers> WorkHasWorkers { get; set; }
         public DbSet<WorkType> WorkTypes { get; set; }
         public DbSet<User> Users { get; set; }
+
+        private DbSet<WorkerMothlyDetailsFull> WorkerMothlyDetailsFulls { get; set; }
+
+        public async Task<List<WorkerMothlyDetailsFull>> GetWorkerMothlyDetailsFull(int workerId, DateTime? startDate, DateTime? endDate)
+        {
+            var res = await this.WorkerMothlyDetailsFulls
+                .FromSqlRaw("Exec [dbo].[GetWorkerMonthlyDetailsFull] @p0, @p1, @p2",
+                    workerId, (object?)startDate ?? DBNull.Value, (object?)endDate ?? DBNull.Value)
+                .ToListAsync();
+            return res;
+        }
     }
 }

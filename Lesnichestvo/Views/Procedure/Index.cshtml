@@ -1,0 +1,98 @@
+﻿@using Lesnichestvo.DAL.Models;
+@model List<WorkerMothlyDetailsFull>
+@{
+    ViewData["Title"] = "Месячная детализация работников";
+}
+
+<div class="center_element">
+    <div>Хранимая процедура "GetWorkerMonthlyDetailsFull"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home")</div>
+    <div>Возращает сколько работник нароботал по месяцам (можно указать месячный диапазон)</div>
+    
+    @using (Html.BeginForm("GetWorkerMothlyDetailsFull", "Procedure", FormMethod.Get))
+    {
+        <table align="center">
+            <tr>
+                <td>
+                    <label for="worker-id-input" class="form-label">ID работника: </label>
+                    @if(ViewBag.WorkerID != null)
+                    {
+                        <input id="worker-id-input" type="number" name="workerID" class="form-control" value="@ViewBag.WorkerID" />
+                    }
+                    else
+                    {
+                        <input id="worker-id-input" type="number" name="workerID" class="form-control" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="start-month-input" class="form-label">С какого месяца (включительно): </label>
+                    @if(ViewBag.StartDate != null)
+                    {
+                        <input id="start-month-input" type="month" name="startDate" class="form-control" value="@ViewBag.StartDate.ToString("yyyy-MM")" />
+                    }
+                    else
+                    {
+                        <input id="start-month-input" type="month" name="startDate" class="form-control" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="end-month-input" class="form-label">По какой месяц (исключительно): </label>
+                    @if(ViewBag.EndDate != null)
+                    {
+                        <input id="end-month-input" type="month" name="endDate" class="form-control" value="@ViewBag.EndDate.ToString("yyyy-MM")" />
+                    }
+                    else
+                    {
+                        <input id="end-month-input" type="month" name="endDate" class="form-control" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" id="execute-procedure" value="Выполнить" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    }
+
+    @if (ViewBag.HasResult == true)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID работника</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Год-месяц</th>
+                    <th>Общие часы</th>
+                    <th>Кол-во работ</th>
+                    <th>Текущая ЗП</th>
+                    <th>Расчитаная ЗП</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (WorkerMothlyDetailsFull item in Model!)
+                {
+                    <tr>
+                        <td>@item.WorkerID</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Role</td>
+                        <td>@item.YearMonth</td>
+                        <td>@item.TotalHours</td>
+                        <td>@item.WorksCount</td>
+                        <td>@item.CurrentPayment</td>
+                        <td>@item.MonthlyCalculatedPayment</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (Model is not null)
+    {
+        <div>Ничего не найдено =(</div>
+    }
+</div>
