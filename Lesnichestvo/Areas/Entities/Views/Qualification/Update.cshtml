@@ -1,7 +1,12 @@
 ﻿@model Qualification
+@{
+    ViewData["Title"] = "Редактирование Квалификации";
+    string entityName = "Qualification";
+}
+
 <div class="center_element">
-    <h3>Редактирование квалификации @Model.ID</h3>
-    @using (Html.BeginForm("FinishUpdate", "Qualification", FormMethod.Post, new { area = "Entities" }))
+    <h3>Редактирование Квалификации @Model.ID</h3>
+    @using (Html.BeginForm("FinishUpdate", entityName, FormMethod.Post, new { area = "Entities" }))
     {
         @Html.HiddenFor(m => m.ID)
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>

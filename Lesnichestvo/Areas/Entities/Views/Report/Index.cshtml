@@ -1,6 +1,7 @@
 @model List<Report>
 @{
     ViewData["Title"] = "Отчёты";
+    string entityName = "Report";
 }
 
 <div class="center_element">
@@ -10,6 +11,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>ID осмотра</th>
                 <th>Тело отчёта</th>
                 <th>Принятые меры</th>
                 <th>Заключение</th>
@@ -20,6 +22,7 @@
             {
                 <tr>
                     <td>@item.ID</td>
+                    <td>@item.InspectionID</td>
                     <td>@item.Body</td>
                     <td>@item.TakenMeasures</td>
                     <td>@item.Conclusion</td>
@@ -28,10 +31,10 @@
                         {
                             <td>
                                 <ul>
-                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", "Work", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = item.ID })</li>
                                     @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
                                     {
-                                        <li>@Html.ActionLink("Удалить", "Delete", "Work", new { id = item.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                        <li>@Html.ActionLink("Удалить", "Delete", entityName, new { id = item.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
                                     }
                                 </ul>
                             </td>
@@ -43,18 +46,21 @@
         <tfoot>
             @if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
             {
-                @using (Html.BeginForm("Create", "Work", FormMethod.Post))
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     <tr>
                         <td>Авто</td>
-                        <td><input class="form-control" type="date" name="Body" /></td>
-                        <td><input class="form-control" type="number" name="TakenMeasures" /></td>
-                        <td><input class="form-control" type="number" name="Conclusion" /></td>
+                        <td><input class="form-control" type="text" name="Body" /></td>
+                        <td><input class="form-control" type="number" name="InspectionID" /></td>
+                        <td><input class="form-control" type="text" name="TakenMeasures" /></td>
+                        <td><input class="form-control" type="text" name="Conclusion" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>@Html.ValidationMessage("Body", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("InspectionID", "", new { @class = "text-danger" })</td>
                         <td>@Html.ValidationMessage("TakenMeasures", "", new { @class = "text-danger" })</td>
                         <td>@Html.ValidationMessage("Conclusion", "", new { @class = "text-danger" })</td>
                     </tr>

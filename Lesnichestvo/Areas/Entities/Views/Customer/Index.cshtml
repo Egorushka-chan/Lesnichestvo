@@ -1,6 +1,7 @@
 ﻿@model List<Customer>
 @{
     ViewData["Title"] = "Заказчики";
+    string entityName = "Customer";
 }
 
 <div class="center_element">
@@ -36,11 +37,11 @@
                         {
                             <td>
                                 <ul>
-                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", "Customer", new { id = customer.ID })</li>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = customer.ID })</li>
                                     @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
                                     {
                                         <li>
-                                            @Html.ActionLink("Удалить", "Delete", "Customer", new { id = customer.ID },
+                                        @Html.ActionLink("Удалить", "Delete", entityName, new { id = customer.ID },
                                                 htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })
                                         </li>
                                     }
@@ -55,7 +56,7 @@
             @{
                 if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
                 {
-                    <form asp-controller="Customer" asp-action="Create" method="post">
+                    <form asp-controller=@entityName asp-action="Create" method="post">
                     <tr>
                         <td class="mb-3">Авто</td>
                         <td><input class="form-control" type="text" name="Name" placeholder="Новый заказчик" /></td>

@@ -1,6 +1,7 @@
 @model List<Work>
 @{
     ViewData["Title"] = "Работы";
+    string entityName = "Work";
 }
 
 <div class="center_element">
@@ -30,10 +31,10 @@
                         {
                             <td>
                                 <ul>
-                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", "Work", new { id = item.ID })</li>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { id = item.ID })</li>
                                     @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
                                     {
-                                        <li>@Html.ActionLink("Удалить", "Delete", "Work", new { id = item.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                        <li>@Html.ActionLink("Удалить", "Delete", entityName, new { id = item.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
                                     }
                                 </ul>
                             </td>
@@ -45,7 +46,7 @@
         <tfoot>
             @if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
             {
-                @using (Html.BeginForm("Create", "Work", FormMethod.Post))
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     <tr>

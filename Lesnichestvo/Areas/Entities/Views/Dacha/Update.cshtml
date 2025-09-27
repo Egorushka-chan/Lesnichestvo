@@ -1,9 +1,13 @@
 ﻿@model Dacha
+@{
+    ViewData["Title"] = "Редактирование Лесных дач";
+    string entityName = "Dacha";
+}
 
 <div class="center_element">
     <h3>Редактирование Лесной дачи @Model.ID</h3>
 
-    @using (Html.BeginForm("FinishUpdate", "Dacha", FormMethod.Post))
+    @using (Html.BeginForm("FinishUpdate", entityName, FormMethod.Post))
     {
         @Html.HiddenFor(m => m.ID)
 

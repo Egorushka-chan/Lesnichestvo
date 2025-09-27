@@ -1,9 +1,13 @@
 @model Work
+@{
+    ViewData["Title"] = "Редактирование Работы";
+    string entityName = "Work";
+}
 
 <div class="center_element">
-    <h3>Редактирование работы @Model.ID</h3>
+    <h3>Редактирование Работы @Model.ID</h3>
 
-    @using (Html.BeginForm("FinishUpdate", "Work", FormMethod.Post))
+    @using (Html.BeginForm("FinishUpdate", entityName, FormMethod.Post))
     {
         @Html.HiddenFor(m => m.ID)
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
