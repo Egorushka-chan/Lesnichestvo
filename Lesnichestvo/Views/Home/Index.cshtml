@@ -9,8 +9,8 @@
     <div>
         Будьте добры, выбрать одну из возможных сущностей
         <ul>
-            <li>@Html.ActionLink("Заказчики", "Index", "Customer")</li>
-            <li>@Html.ActionLink("Лесные дачи", "Index", "Dacha")</li>
+            <li><a asp-area="Entities" asp-controller="Customer" asp-action="Index">Заказчики</a></li>
+            <li><a asp-area="Entities" asp-controller="Dacha" asp-action="Index">Лесные дачи</a></li>
             <li>Осмотры</li>
             <li>Инвентарь</li>
             <li>Карта</li>
@@ -20,8 +20,8 @@
             <li>Проданная древесина</li>
             <li>Ещё не проданные деревья</li>
             <li>Типы деревьев</li>
-            <li>Работы</li>
-            <li>Работники</li>
+            <li><a asp-area="Entities" asp-controller="Work" asp-action="Index">Работы</a></li>
+            <li><a asp-area="Entities" asp-controller="Worker" asp-action="Index">Работники</a></li>
             <li>Типы работы</li>
             <li>Связь N:M работ и работников</li>
             <li>Связь N:M работ и инвентаря</li>

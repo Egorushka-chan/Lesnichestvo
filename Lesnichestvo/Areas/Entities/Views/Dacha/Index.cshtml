@@ -1,5 +1,6 @@
 ﻿@using System.Security.Claims
 @using Lesnichestvo.Extensions
+@using Lesnichestvo.DAL.Entities
 @inject IHttpContextAccessor Accessor
 
 @model List<Dacha>
@@ -9,7 +10,7 @@
 
 <div class="center_element">
     <div>Таблица "Лесные дачи"</div>
-    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home")</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
     <input type="text" id="dachaDescriptionFilter" class="form-control mb-3" placeholder="Фильтр по описанию" />
     <table align="center">
         <thead>

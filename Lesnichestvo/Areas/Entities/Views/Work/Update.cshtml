@@ -1,0 +1,49 @@
+@using Lesnichestvo.DAL.Entities
+@model Work
+
+<div class="center_element">
+    <h3>Редактирование работы @Model.ID</h3>
+
+    @using (Html.BeginForm("FinishUpdate", "Work", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <table class="table table-bordered">
+            <tr>
+                <td>@Html.LabelFor(m => m.Date)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.HoursSpent)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.HoursSpent, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.HoursSpent, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.TypeID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.TypeID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.TypeID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.PreviousWorkID)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.PreviousWorkID, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.PreviousWorkID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </td>
+            </tr>
+        </table>
+    }
+</div>

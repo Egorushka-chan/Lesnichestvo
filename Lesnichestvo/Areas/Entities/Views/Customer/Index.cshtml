@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+@using Lesnichestvo.DAL.Entities
 @using Lesnichestvo.Extensions
 @inject IHttpContextAccessor Accessor
 
@@ -9,7 +10,7 @@
 
 <div class="center_element">
     <div>Таблица "Заказчики"</div>
-    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home")</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
     <ul class="horizontal">
         <li><input type="text" id="customerNameTypeFilter" class="form-control mb-3" placeholder="Фильтр по имени и типу" /></li>
         <li><input type="text" id="customerStatusFilter" class="form-control mb-3" placeholder="Фильтр по статусу" /></li>

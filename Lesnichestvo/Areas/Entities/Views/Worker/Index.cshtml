@@ -1,0 +1,81 @@
+@using System.Security.Claims
+@using Lesnichestvo.Extensions
+@using Lesnichestvo.DAL.Entities
+@inject IHttpContextAccessor Accessor
+
+@model List<Worker>
+@{
+    ViewData["Title"] = "Работники";
+}
+
+<div class="center_element">
+    <div>Таблица "Работники"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Должность</th>
+                <th>Приём на работу</th>
+                <th>Дата рождения</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var w in Model)
+            {
+                <tr>
+                    <td>@w.ID</td>
+                    <td>@w.Name</td>
+                    <td>@w.Surname</td>
+                    <td>@w.Role</td>
+                    <td>@w.IssueDate.ToShortDateString()</td>
+                    <td>@w.BirthDate.ToShortDateString()</td>
+                    @{
+                        if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
+                        {
+                            <td>
+                                <ul>
+                                    <li>@Html.ActionLink("Редактировать", "BeginUpdate", "Worker", new { id = w.ID })</li>
+                                    @if (Accessor.HttpContext?.IsUserInRoles("admin") == true)
+                                    {
+                                        <li>@Html.ActionLink("Удалить", "Delete", "Worker", new { id = w.ID }, htmlAttributes: new { onclick = "return confirm('Удалить запись?');" })</li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
+            {
+                @using (Html.BeginForm("Create", "Worker", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>Авто</td>
+                        <td><input class="form-control" type="text" name="Name" /></td>
+                        <td><input class="form-control" type="text" name="Surname" /></td>
+                        <td><input class="form-control" type="text" name="Role" /></td>
+                        <td><input class="form-control" type="date" name="IssueDate" /></td>
+                        <td><input class="form-control" type="date" name="BirthDate" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("Name", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Surname", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Role", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("IssueDate", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })</td>
+                    </tr>
+                }
+            }
+        </tfoot>
+    </table>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>

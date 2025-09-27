@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lesnichestvo.Controllers
+namespace Lesnichestvo.Areas.Entities.Controllers.Default
 {
     [Authorize]
+    [Area("Entities")]
     public class DefaultEntityController<TEntity>(IBaseRepository<TEntity> repository) : Controller where TEntity : class, IEntity
     {
         public async virtual Task<IActionResult> Index(CancellationToken token)

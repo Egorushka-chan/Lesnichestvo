@@ -1,0 +1,56 @@
+@using Lesnichestvo.DAL.Entities
+@model Worker
+
+<div class="center_element">
+    <h3>Редактирование работника @Model.ID</h3>
+
+    @using (Html.BeginForm("FinishUpdate", "Worker", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <table class="table table-bordered">
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Surname)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Role)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.IssueDate)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.IssueDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.IssueDate, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.BirthDate)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.BirthDate, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </td>
+            </tr>
+        </table>
+    }
+</div>
