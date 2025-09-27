@@ -1,0 +1,61 @@
+﻿@model List<Qualification>
+@{
+    ViewData["Title"] = "Квалификации";
+}
+<div class="center_element">
+    <div>Таблица "Квалификации"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
+    <table align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Тип</th>
+                <th>Дата выдачи</th>
+                <th>Код сертификата</th>
+                <th>Кто выдал</th>
+                <th>ID работника</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model)
+            {
+                <tr>
+                    <td>@q.ID</td>
+                    <td>@q.Type</td>
+                    <td>@q.IssueDate.ToShortDateString()</td>
+                    <td>@q.CertificateCode</td>
+                    <td>@q.IssuedBy</td>
+                    <td>@q.WorkerID</td>
+                    <td>
+                        @Html.ActionLink("Редактировать", "BeginUpdate", "Qualification", new { area = "Entities", id = q.ID })
+                        @Html.ActionLink("Удалить", "Delete", "Qualification", new { area = "Entities", id = q.ID }, new { onclick = "return confirm('Удалить запись?');" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @using (Html.BeginForm("Create", "Qualification", FormMethod.Post, new { area = "Entities" }))
+            {
+                @Html.AntiForgeryToken()
+                <tr>
+                    <td>Авто</td>
+                    <td><input class="form-control" type="text" name="Type" /></td>
+                    <td><input class="form-control" type="date" name="IssueDate" /></td>
+                    <td><input class="form-control" type="text" name="CertificateCode" /></td>
+                    <td><input class="form-control" type="text" name="IssuedBy" /></td>
+                    <td><input class="form-control" type="number" name="WorkerID" /></td>
+                    <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessage("Type", "", new { @class = "text-danger" })</td>
+                    <td>@Html.ValidationMessage("IssueDate", "", new { @class = "text-danger" })</td>
+                    <td>@Html.ValidationMessage("CertificateCode", "", new { @class = "text-danger" })</td>
+                    <td>@Html.ValidationMessage("IssuedBy", "", new { @class = "text-danger" })</td>
+                    <td>@Html.ValidationMessage("WorkerID", "", new { @class = "text-danger" })</td>
+                </tr>
+            }
+        </tfoot>
+    </table>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
