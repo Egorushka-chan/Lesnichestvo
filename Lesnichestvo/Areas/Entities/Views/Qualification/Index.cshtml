@@ -35,26 +35,29 @@
             }
         </tbody>
         <tfoot>
-            @using (Html.BeginForm("Create", entityName, FormMethod.Post, new { area = "Entities" }))
+            @if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
             {
-                @Html.AntiForgeryToken()
-                <tr>
-                    <td>Авто</td>
-                    <td><input class="form-control" type="text" name="Type" /></td>
-                    <td><input class="form-control" type="date" name="IssueDate" /></td>
-                    <td><input class="form-control" type="text" name="CertificateCode" /></td>
-                    <td><input class="form-control" type="text" name="IssuedBy" /></td>
-                    <td><input class="form-control" type="number" name="WorkerID" /></td>
-                    <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>@Html.ValidationMessage("Type", "", new { @class = "text-danger" })</td>
-                    <td>@Html.ValidationMessage("IssueDate", "", new { @class = "text-danger" })</td>
-                    <td>@Html.ValidationMessage("CertificateCode", "", new { @class = "text-danger" })</td>
-                    <td>@Html.ValidationMessage("IssuedBy", "", new { @class = "text-danger" })</td>
-                    <td>@Html.ValidationMessage("WorkerID", "", new { @class = "text-danger" })</td>
-                </tr>
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post, new { area = "Entities" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>Авто</td>
+                        <td><input class="form-control" type="text" name="Type" /></td>
+                        <td><input class="form-control" type="date" name="IssueDate" /></td>
+                        <td><input class="form-control" type="text" name="CertificateCode" /></td>
+                        <td><input class="form-control" type="text" name="IssuedBy" /></td>
+                        <td><input class="form-control" type="number" name="WorkerID" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("Type", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("IssueDate", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("CertificateCode", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("IssuedBy", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("WorkerID", "", new { @class = "text-danger" })</td>
+                    </tr>
+                }
             }
         </tfoot>
     </table>

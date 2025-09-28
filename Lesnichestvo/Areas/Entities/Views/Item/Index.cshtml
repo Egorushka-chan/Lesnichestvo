@@ -43,23 +43,26 @@
             }
         </tbody>
         <tfoot>
-            @using (Html.BeginForm("Create", entityName, FormMethod.Post, new { area = "Entities" }))
-            {
-                @Html.AntiForgeryToken()
-                <tr>
-                    <td>Авто</td>
-                    <td><input class="form-control" type="text" name="Name" /></td>
-                    <td><input class="form-control" type="number" name="Price" step="0.01" /></td>
-                    <td><input class="form-control" type="text" name="Status" /></td>
-                    <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>@Html.ValidationMessage("Name", "", new { @class = "text-danger" })</td>
-                    <td>@Html.ValidationMessage("Price", "", new { @class = "text-danger" })</td>
-                    <td>@Html.ValidationMessage("Status", "", new { @class = "text-danger" })</td>
-                </tr>
+            @if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true){
+                @using (Html.BeginForm("Create", entityName, FormMethod.Post, new { area = "Entities" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>Авто</td>
+                        <td><input class="form-control" type="text" name="Name" /></td>
+                        <td><input class="form-control" type="number" name="Price" step="0.01" /></td>
+                        <td><input class="form-control" type="text" name="Status" /></td>
+                        <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.ValidationMessage("Name", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Price", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Status", "", new { @class = "text-danger" })</td>
+                    </tr>
+                }
             }
+            
         </tfoot>
     </table>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
