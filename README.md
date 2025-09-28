@@ -26,4 +26,4 @@
   - Manager: Логин - "Manager", Пароль - "Manager"
   - Guest: Логин - "Guest", Пароль - "Guest"
 
-Пояснительная записка есть на Google Диске по ссылке: *я ещё не сделал =(*
+Пояснительная записка есть на Google Диске по ссылке: https://docs.google.com/document/d/1vJvyA9wq0keNq8qCmbDAj9z4i2LfUsCA/edit?usp=sharing&ouid=116006743165809312923&rtpof=true&sd=true
