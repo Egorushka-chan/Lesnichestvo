@@ -49,6 +49,11 @@ namespace Lesnichestvo.Controllers
                 ClaimsIdentity claimsIdentity = new(claims, "Cookies");
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
             }
+            else
+            {
+                ModelState.AddModelError("", "Неверный логин или пароль");
+                return View("Login", userModel);
+            }
 
             if (returnUrl is not null)
             {
