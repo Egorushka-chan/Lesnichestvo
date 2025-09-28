@@ -4,15 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lesnichestvo.DAL
 {
-    public class MainContext(DbContextOptions<MainContext> options) : DbContext(options)
+    internal class MainContext(DbContextOptions<MainContext> options) : DbContext(options)
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-EGOR\\SQLEXPRESS;Initial Catalog=Lesnichestvo;Integrated Security=True;TrustServerCertificate=True");
-            
-            base.OnConfiguring(optionsBuilder);
-        }
-
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Dacha> Dachas { get; set; }
         public DbSet<Inspection> Inspections { get; set; }
@@ -31,15 +24,7 @@ namespace Lesnichestvo.DAL
         public DbSet<WorkType> WorkTypes { get; set; }
         public DbSet<User> Users { get; set; }
 
-        private DbSet<WorkerMothlyDetailsFull> WorkerMothlyDetailsFulls { get; set; }
-
-        public async Task<List<WorkerMothlyDetailsFull>> GetWorkerMothlyDetailsFull(int workerId, DateTime? startDate, DateTime? endDate)
-        {
-            var res = await this.WorkerMothlyDetailsFulls
-                .FromSqlRaw("Exec [dbo].[GetWorkerMonthlyDetailsFull] @p0, @p1, @p2",
-                    workerId, (object?)startDate ?? DBNull.Value, (object?)endDate ?? DBNull.Value)
-                .ToListAsync();
-            return res;
-        }
+        internal DbSet<WorkerMothlyDetailsFull> WorkerMothlyDetailsFulls { get; set; }
+        internal DbSet<FindingNameModel> FindingNameModels { get; set; }
     }
 }

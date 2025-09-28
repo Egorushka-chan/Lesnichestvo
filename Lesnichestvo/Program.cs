@@ -1,9 +1,18 @@
+using System.Globalization;
+using Lesnichestvo.Binders;
 using Lesnichestvo.DAL.DI;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+//var cultureInfo = CultureInfo.InvariantCulture;
+//CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+//CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new MyDecimalBinderProvider());
+});
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);

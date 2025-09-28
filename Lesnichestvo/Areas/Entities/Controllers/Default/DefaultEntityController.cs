@@ -29,12 +29,21 @@ namespace Lesnichestvo.Areas.Entities.Controllers.Default
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> FinishUpdate([FromForm] TEntity entity, CancellationToken token)
         {
-            if (ModelState.IsValid)
+            if(!ModelState.IsValid)
+            {
+                return View("Update", entity);
+            }
+
+            try
             {
                 await repository.UpdateAsync(entity, token);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            return await Index(token);
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx)
+            {
+                ModelState.AddModelError("", "Ошибка базы данных: " + sqlEx.Message);
+                return View("Update", entity);
+            }
         }
 
         [HttpPost]

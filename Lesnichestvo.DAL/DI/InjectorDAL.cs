@@ -43,6 +43,7 @@ namespace Lesnichestvo.DAL.DI
             services.AddScoped<IBaseRepository<WorkHasWorkers>, BaseRepository<WorkHasWorkers>>();
             services.AddScoped<IBaseRepository<WorkType>, BaseRepository<WorkType>>();
             services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
+            services.AddScoped<IProcedureRepository, ProcedureRepository>();
         }
     }
 }

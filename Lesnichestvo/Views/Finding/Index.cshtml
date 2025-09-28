@@ -1,0 +1,72 @@
+﻿@using Lesnichestvo.DAL.Models 
+@model List<FindingNameModel>
+@{
+    ViewData["Title"] = "Поиск по именам";
+}
+
+<div class="center_element">
+    <div>Хранимая процедура "FindByName"</div>
+    <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home")</div>
+    <div>Находит все сущности по именам:</div>
+    <ul>
+        <li>Закачики (Название)</li>
+        <li>Лесные дачи (Описание)</li>
+        <li>Квартальные сети (Название)</li>
+        <li>Инвентарь (Название)</li>
+        <li>Типы деревьев (Название)</li>
+        <li>Типы работ (Название)</li>
+        <li>Работники (ФИО)</li>
+    </ul>
+    @using (Html.BeginForm("FindingName", "Finding", FormMethod.Get))
+    {
+        <table align="center">
+            <tr>
+                <td>
+                    <label for="name-input" class="form-label">Имя для поиска: </label>
+                    @if(ViewBag.Name != null)
+                    {
+                        <input id="name-input" type="text" name="name" class="form-control" value="@ViewBag.Name" />
+                    }
+                    else
+                    {
+                        <input id="name-input" type="text" name="name" class="form-control" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" id="execute-procedure" value="Выполнить" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    }
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Поле</th>
+                    <th>Таблица</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
+                        <td>@item.FieldName</td>
+                        <td>@item.TableName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (Model != null && Model.Count == 0)
+    {
+        <div>Ничего не найдено =(</div>
+    }
+</div>

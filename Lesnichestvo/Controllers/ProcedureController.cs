@@ -1,10 +1,10 @@
-﻿using Lesnichestvo.DAL;
+﻿using Lesnichestvo.DAL.Interfaces;
 using Lesnichestvo.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesnichestvo.Controllers
 {
-    public class ProcedureController(MainContext mainContext) : Controller
+    public class ProcedureController(IProcedureRepository procedureRepository) : Controller
     {
         public IActionResult Index()
         {
@@ -16,7 +16,8 @@ namespace Lesnichestvo.Controllers
             DateTime? startDate, 
             DateTime? endDate)
         {
-            List<WorkerMothlyDetailsFull> detailization = await mainContext.GetWorkerMothlyDetailsFull(workerID, startDate, endDate);
+            List<WorkerMothlyDetailsFull> detailization =
+                await procedureRepository.GetWorkerMothlyDetailsFull(workerID, startDate, endDate);
 
             ViewBag.HasResult = detailization.Count != 0;
             ViewBag.WorkerID = workerID;
