@@ -17,14 +17,15 @@
         Обратитесь к администрации, если вы их не помните
     </p>
 
-    <form asp-route="login" method="post" class="mt-4">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = "login" }))
+    {
         <table align="center">
             <tr>
                 <td class="align-middle">
                     <i class="bi bi-person-circle text-secondary me-2"></i> Логин
                 </td>
                 <td>
-                    <input class="form-control ms-2" type="text" name="Login" placeholder="Введите свой логин" />
+                    @Html.TextBoxFor(uModel => uModel.Login, new { @class = "form-control ms-2", placeholder = "Введите свой логин"})
                 </td>
             </tr>
             <tr>
@@ -32,7 +33,7 @@
                     <i class="bi bi-key-fill text-secondary me-2"></i> Пароль
                 </td>
                 <td>
-                    <input class="form-control ms-2" type="password" name="Password" placeholder="Введите свой пароль" />
+                    @Html.PasswordFor(uModel => uModel.Password, new { @class = "form-control ms-2", placeholder = "Введите свой пароль" })
                 </td>
             </tr>
             <tr>
@@ -44,7 +45,7 @@
                 </td>
             </tr>
         </table>
-    </form>
+    }
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger mt-3" })
 </div>

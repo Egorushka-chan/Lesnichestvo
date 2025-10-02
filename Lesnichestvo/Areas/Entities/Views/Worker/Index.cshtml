@@ -13,9 +13,12 @@
                 <th>ID</th>
                 <th>Имя</th>
                 <th>Фамилия</th>
+                <th>Отчество</th>
                 <th>Должность</th>
                 <th>Приём на работу</th>
                 <th>Дата рождения</th>
+                <th>Зарплата</th>
+                <th>Статус</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +28,12 @@
                     <td>@w.ID</td>
                     <td>@w.Name</td>
                     <td>@w.Surname</td>
+                    <td>@w.Patronymic</td>
                     <td>@w.Role</td>
                     <td>@w.IssueDate.ToShortDateString()</td>
                     <td>@w.BirthDate.ToShortDateString()</td>
+                    <td>@w.Payment.ToString()</td>
+                    <td>@w.Status</td>
                     @{
                         if (Accessor.HttpContext?.IsUserInRoles("admin","manager") == true)
                         {
@@ -55,18 +61,24 @@
                         <td>Авто</td>
                         <td><input class="form-control" type="text" name="Name" /></td>
                         <td><input class="form-control" type="text" name="Surname" /></td>
+                        <td><input class="form-control" type="text" name="Patronymic" /></td>
                         <td><input class="form-control" type="text" name="Role" /></td>
                         <td><input class="form-control" type="date" name="IssueDate" /></td>
                         <td><input class="form-control" type="date" name="BirthDate" /></td>
+                        <td><input class="form-control" type="number" step="0.01" name="Payment" /></td>
+                        <td><input class="form-control" type="text" name="Status" /></td>
                         <td><input class="btn btn-primary" type="submit" value="Добавить" /></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>@Html.ValidationMessage("Name", "", new { @class = "text-danger" })</td>
                         <td>@Html.ValidationMessage("Surname", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Patronymic", "", new { @class = "text-danger" })</td>
                         <td>@Html.ValidationMessage("Role", "", new { @class = "text-danger" })</td>
                         <td>@Html.ValidationMessage("IssueDate", "", new { @class = "text-danger" })</td>
                         <td>@Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Payment", "", new { @class = "text-danger" })</td>
+                        <td>@Html.ValidationMessage("Status", "", new { @class = "text-danger" })</td>
                     </tr>
                 }
             }

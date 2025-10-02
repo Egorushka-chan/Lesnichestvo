@@ -26,7 +26,6 @@ namespace Lesnichestvo.DAL.DI
 
         private static void InitRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IBaseRepository<Customer>, BaseRepository<Customer>>();
             services.AddScoped<IBaseRepository<Dacha>, BaseRepository<Dacha>>();
             services.AddScoped<IBaseRepository<Inspection>, BaseRepository<Inspection>>();
             services.AddScoped<IBaseRepository<Item>, BaseRepository<Item>>();
@@ -37,13 +36,19 @@ namespace Lesnichestvo.DAL.DI
             services.AddScoped<IBaseRepository<SoldWood>, BaseRepository<SoldWood>>();
             services.AddScoped<IBaseRepository<UnsoldWood>, BaseRepository<UnsoldWood>>();
             services.AddScoped<IBaseRepository<WoodType>, BaseRepository<WoodType>>();
-            services.AddScoped<IBaseRepository<Work>, BaseRepository<Work>>();
-            services.AddScoped<IBaseRepository<Worker>, BaseRepository<Worker>>();
             services.AddScoped<IBaseRepository<WorkHasInventory>, BaseRepository<WorkHasInventory>>();
+            services.AddScoped<IBaseRepository<Worker>, BaseRepository<Worker>>();
             services.AddScoped<IBaseRepository<WorkHasWorkers>, BaseRepository<WorkHasWorkers>>();
             services.AddScoped<IBaseRepository<WorkType>, BaseRepository<WorkType>>();
             services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
+
             services.AddScoped<IProcedureRepository, ProcedureRepository>();
+            
+            services.AddScoped<IBaseRepository<Work>, WorkRepository>();
+            services.AddScoped<IWorkRepository, WorkRepository>();
+            
+            services.AddScoped<IBaseRepository<Customer>, CustomerRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
     }
 }

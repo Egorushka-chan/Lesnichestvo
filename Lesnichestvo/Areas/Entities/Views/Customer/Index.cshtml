@@ -7,10 +7,28 @@
 <div class="center_element">
     <div>Таблица "Заказчики"</div>
     <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
-    <ul class="horizontal">
-        <li><input type="text" id="customerNameTypeFilter" class="form-control mb-3" placeholder="Фильтр по имени и типу" /></li>
-        <li><input type="text" id="customerStatusFilter" class="form-control mb-3" placeholder="Фильтр по статусу" /></li>
-    </ul>
+    @using (Html.BeginForm("Filter", entityName, FormMethod.Get)){
+        <ul class="horizontal">
+            @if (!string.IsNullOrEmpty(ViewBag.NameType))
+            {
+                <li><input type="text" class="form-control mb-3" placeholder="Фильтр по имени и типу" name="nameType" value="@ViewBag.NameType" /></li>
+            }
+            else
+            {
+                <li><input type="text" class="form-control mb-3" placeholder="Фильтр по имени и типу" name="nameType" /></li>
+            }
+            @if (!string.IsNullOrEmpty(ViewBag.Status))
+            {
+                <li><input type="text" class="form-control mb-3" placeholder="Фильтр по статусу" name="status" value="@ViewBag.Status"/></li>
+            }
+            else
+            {
+                <li><input type="text" class="form-control mb-3" placeholder="Фильтр по статусу" name="status" /></li>
+            }
+        </ul>
+        <input type="submit" class="btn btn-primary mb-3" value="Применить фильтры" />
+    }        
+    
     <table align="center" class="table">
         <thead>
             <tr>

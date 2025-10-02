@@ -20,67 +20,67 @@
         <ul class="list-unstyled">
             <li>
                 <i class="bi bi-person-badge me-2 text-success"></i>
-                <a asp-area="Entities" asp-controller="Customer" asp-action="Index">Заказчики</a>
+                @Html.ActionLink("Заказчики", "Index", "Customer", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-house-door me-2 text-success"></i>
-                <a asp-area="Entities" asp-controller="Dacha" asp-action="Index">Лесные дачи</a>
+                @Html.ActionLink("Лесные дачи", "Index", "Dacha", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-search me-2 text-info"></i>
-                <a asp-area="Entities" asp-controller="Inspection" asp-action="Index">Осмотры</a>
+                @Html.ActionLink("Осмотры", "Index", "Inspection", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-tools me-2 text-warning"></i>
-                <a asp-area="Entities" asp-controller="Item" asp-action="Index">Инвентарь</a>
+                @Html.ActionLink("Инвентарь", "Index", "Item", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-map me-2 text-primary"></i>
-                <a asp-area="Entities" asp-controller="Mapping" asp-action="Index">Карта</a>
+                @Html.ActionLink("Карта", "Index", "Mapping", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-award me-2 text-warning"></i>
-                <a asp-area="Entities" asp-controller="Qualification" asp-action="Index">Квалификации</a>
+                @Html.ActionLink("Квалификации", "Index", "Qualification", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-diagram-3 me-2 text-secondary"></i>
-                <a asp-area="Entities" asp-controller="QuartalNetwork" asp-action="Index">Квартальные сети</a>
+                @Html.ActionLink("Квартальные сети", "Index", "QuartalNetwork", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-file-earmark-text me-2 text-info"></i>
-                <a asp-area="Entities" asp-controller="Report" asp-action="Index">Отчёты</a>
+                @Html.ActionLink("Отчёты", "Index", "Report", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-cart-check me-2 text-success"></i>
-                <a asp-area="Entities" asp-controller="SoldWood" asp-action="Index">Проданная древесина</a>
+                @Html.ActionLink("Проданная древесина", "Index", "SoldWood", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-tree me-2 text-success"></i>
-                <a asp-area="Entities" asp-controller="UnsoldWood" asp-action="Index">Ещё не проданные деревья</a>
+                @Html.ActionLink("Ещё не проданные деревья", "Index", "UnsoldWood", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-tree-fill me-2 text-success"></i>
-                <a asp-area="Entities" asp-controller="WoodType" asp-action="Index">Типы деревьев</a>
+                @Html.ActionLink("Типы деревьев", "Index", "WoodType", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-hammer me-2 text-dark"></i>
-                <a asp-area="Entities" asp-controller="Work" asp-action="Index">Работы</a>
+                @Html.ActionLink("Работы", "Index", "Work", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-people me-2 text-primary"></i>
-                <a asp-area="Entities" asp-controller="Worker" asp-action="Index">Работники</a>
+                @Html.ActionLink("Работники", "Index", "Worker", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-gear me-2 text-secondary"></i>
-                <a asp-area="Entities" asp-controller="WorkType" asp-action="Index">Типы работы</a>
+                @Html.ActionLink("Типы работы", "Index", "WorkType", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-link-45deg me-2 text-info"></i>
-                <a asp-area="Entities" asp-controller="WorkHasWorkers" asp-action="Index">Связь N:M работ и работников</a>
+                @Html.ActionLink("Связь N:M работ и работников", "Index", "WorkHasWorkers", new { area = "Entities" })
             </li>
             <li>
                 <i class="bi bi-link-45deg me-2 text-info"></i>
-                <a asp-area="Entities" asp-controller="WorkHasInventory" asp-action="Index">Связь N:M работ и инвентаря</a>
+                @Html.ActionLink("Связь N:M работ и инвентаря", "Index", "WorkHasInventory", new { area = "Entities" })
             </li>
         </ul>
     </div>

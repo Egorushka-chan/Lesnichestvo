@@ -7,6 +7,28 @@
 <div class="center_element">
     <div>Таблица "Работы"</div>
     <div>@Html.ActionLink("Вернуться на главную страницу", "Index", "Home", new { area = "" })</div>
+    @using (Html.BeginForm("Filter", entityName, FormMethod.Get))
+    {
+        <ul class="horizontal">
+            @if (ViewBag.WorkerID is not null)
+            {
+                <li><input type="number" class="form-control mb-3" placeholder="Фильтр по рабочему" name="workerID" value="@ViewBag.WorkerID" /></li>
+            }
+            else
+            {
+                <li><input type="number" class="form-control mb-3" placeholder="Фильтр по рабочему" name="workerID" /></li>
+            }
+            @if (ViewBag.WorkID is not null)
+            {
+                <li><input type="number" class="form-control mb-3" placeholder="Фильтр по работе" name="workID" value="@ViewBag.WorkID" /></li>
+            }
+            else
+            {
+                <li><input type="number" class="form-control mb-3" placeholder="Фильтр по работе" name="workID" /></li>
+            }
+        </ul>
+        <input type="submit" class="btn btn-primary mb-3" value="Применить фильтры" />
+    }
     <table align="center" class="table">
         <thead>
             <tr>
@@ -18,7 +40,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (Work item in Model)
             {
                 <tr>
                     <td>@item.ID</td>

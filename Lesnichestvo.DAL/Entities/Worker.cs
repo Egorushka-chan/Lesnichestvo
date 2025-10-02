@@ -25,6 +25,7 @@ namespace Lesnichestvo.DAL.Entities
         [Display(Name = "Дата рождения")]
         public DateTime BirthDate { get; set; }
         [Display(Name = "Зарплата")]
+        [Required(ErrorMessage = "У сотрудника обязательно должна быть зарплата")]
         public decimal Payment { get; set; }
         [Display(Name = "Статус")]
         public string? Status { get; set; }

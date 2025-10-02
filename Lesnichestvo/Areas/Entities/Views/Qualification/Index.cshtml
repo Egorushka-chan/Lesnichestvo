@@ -27,10 +27,13 @@
                     <td>@q.CertificateCode</td>
                     <td>@q.IssuedBy</td>
                     <td>@q.WorkerID</td>
-                    <td>
-                        @Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { area = "Entities", id = q.ID })
-                        @Html.ActionLink("Удалить", "Delete", entityName, new { area = "Entities", id = q.ID }, new { onclick = "return confirm('Удалить запись?');" })
-                    </td>
+                    @if (Accessor.HttpContext?.IsUserInRoles("admin", "manager") == true)
+                    {
+                        <td>
+                            @Html.ActionLink("Редактировать", "BeginUpdate", entityName, new { area = "Entities", id = q.ID })
+                            @Html.ActionLink("Удалить", "Delete", entityName, new { area = "Entities", id = q.ID }, new { onclick = "return confirm('Удалить запись?');" })
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

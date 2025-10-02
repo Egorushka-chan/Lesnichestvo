@@ -5,7 +5,7 @@ namespace Lesnichestvo.DAL.Repositories
 {
     internal class BaseRepository<TEntity>(MainContext context) : IBaseRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly MainContext _context = context;
+        protected readonly MainContext _context = context;
         public async Task CreateAsync(TEntity entity, CancellationToken token)
         {
             _context.Set<TEntity>().Add(entity);
